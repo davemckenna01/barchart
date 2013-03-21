@@ -1,0 +1,26 @@
+.bar {
+	width:25px;
+	height:200px;
+	border-radius: 15px;
+}
+
+
+.bar-background {
+	height:200px;
+    background-color: #ddd;
+    width:100px;
+}
+
+.bar-foreground {
+	height:50%;
+    background-color: green;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.test {
+    width:10px;
+    height: 10px;
+    border:1px solid red;
+    display: inline-block;
+}
