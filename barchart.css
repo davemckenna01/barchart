@@ -1,26 +1,27 @@
-.bar {
-	width:25px;
-	height:200px;
-	border-radius: 15px;
+.bar-wrapper {
+    
+    height:200px;
 }
 
+.bar {
+    display: inline-block;
+    margin:0;
+    padding:0;
+
+    width:25px;
+    border-radius: 15px;
+}
 
 .bar-background {
-	height:200px;
+    height:100%;
     background-color: #ddd;
-    width:100px;
 }
 
 .bar-foreground {
-	height:50%;
+    vertical-align: baseline;
+    margin-left: -29px;
+
+    height:50%;
     background-color: green;
-    display: inline-block;
-    vertical-align: middle;
 }
 
-.test {
-    width:10px;
-    height: 10px;
-    border:1px solid red;
-    display: inline-block;
-}
