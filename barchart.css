@@ -22,28 +22,44 @@
     display: inline-block;
 }
 
-.bar-chart .bars .bar-wrapper {
+.bar-chart .bars .bar {
     height: 100%;
     display: inline-block;
 }
 
-.bar-chart .bars .bar-wrapper .bar {
+.bar-chart .bars .bar .bar-layers {
     height:100%;
     display: block;
 }
 
-.bar-chart .bars .bar-wrapper .bar .bar-layer {
+.bar-chart .bars .bar .bar-layers .bar-layer {
     display: inline-block;
     margin:0;
     padding:0;
 }
 
-.bar-chart .bars .bar-wrapper .bar .bar-background {
+.bar-chart .bars .bar .bar-layers .bar-layer.bar-background {
     height:100%;
 }
 
-.bar-chart .bars .bar-wrapper .bar .bar-foreground {
+.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground {
     vertical-align: baseline;
+    position: relative;
+}
+
+.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground .bar-value {
+    display: none;
+    position: absolute;
+    top:-1.5em;
+
+    color:#000;
+    background: #fce674;
+    padding: 3px 5px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    -moz-box-shadow: 1px 1px 3px #888;
+    -webkit-box-shadow: 1px 1px 3px #888;
+    box-shadow: 1px 1px 3px #888; 
 }
 
 
@@ -69,26 +85,34 @@
 .bar-chart .bars {
 }
 
-.bar-chart .bars .bar-wrapper {
+.bar-chart .bars .bar {
     width:25px;
     /*word-wrap: break-word;*/
     margin-right:20px;
 }
 
-.bar-chart .bars .bar-wrapper .bar {
+.bar-chart .bars .bar .bar-layers {
 }
 
-.bar-chart .bars .bar-wrapper .bar .bar-layer {
+.bar-chart .bars .bar .bar-layers .bar-layer {
     width:25px;
     border-radius: 15px;
 }
 
-.bar-chart .bars .bar-wrapper .bar .bar-background {
+.bar-chart .bars .bar .bar-layers .bar-layer.bar-background {
     background-color: #f3f3f3;
 }
 
-.bar-chart .bars .bar-wrapper .bar .bar-foreground {
+.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground {
     margin-left: -25px;
     height:50%;
     background-color: #b3e970;
+}
+
+.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground:hover {
+    background-color: #f1d00f;
+}
+
+.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground:hover .bar-value {
+    display: block;
 }
