@@ -1,27 +1,72 @@
-.bar-wrapper {
-    
-    height:200px;
+/* Base Styles */
+
+.bar-chart {
+
 }
 
-.bar {
+.bar-chart .y-axis {
+    height:100%;
+    display: inline-block;
+    position: relative;
+}
+
+.bar-chart .y-axis .y-axis-label {
+    position: absolute;
+    right:0px;
+    margin-top:-0.5em;
+}
+
+.bar-chart .bars {
+    height:100%;
+    display: inline-block;
+}
+
+.bar-chart .bars .bar {
+    height:100%;
+    display: inline-block;
+}
+
+.bar-chart .bars .bar .bar-layer {
     display: inline-block;
     margin:0;
     padding:0;
+}
 
+.bar-chart .bars .bar .bar-background {
+    height:100%;
+}
+
+.bar-chart .bars .bar .bar-foreground {
+    vertical-align: baseline;
+}
+
+
+
+/* Custom Styles */
+
+.bar-chart {
+    height:200px;
+}
+
+.bar-chart .y-axis {
+    width:100px;
+    background-color: pink;
+}
+
+.bar-chart .bars .bar {
+}
+
+.bar-chart .bars .bar .bar-layer {
     width:25px;
     border-radius: 15px;
 }
 
-.bar-background {
-    height:100%;
+.bar-chart .bars .bar .bar-background {
     background-color: #ddd;
 }
 
-.bar-foreground {
-    vertical-align: baseline;
-    margin-left: -29px;
-
+.bar-chart .bars .bar .bar-foreground {
+    margin-left: -25px;
     height:50%;
     background-color: green;
 }
-
