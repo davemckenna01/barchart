@@ -48,15 +48,16 @@
 }
 
 .bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground .bar-value {
-    display: none;
+    /*display: none;*/
     position: absolute;
     top:-1.5em;
+    left:-50%;
 
     color:#000;
     background: #fce674;
     padding: 3px 5px;
     border: 2px solid #fff;
-    border-radius: 10px;
+    border-radius: 15px;
     -moz-box-shadow: 1px 1px 3px #888;
     -webkit-box-shadow: 1px 1px 3px #888;
     box-shadow: 1px 1px 3px #888; 
