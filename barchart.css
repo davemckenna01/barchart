@@ -8,6 +8,7 @@
     height:100%;
     display: inline-block;
     position: relative;
+    vertical-align: top;
 }
 
 .bar-chart .y-axis .y-axis-label {
@@ -21,22 +22,27 @@
     display: inline-block;
 }
 
-.bar-chart .bars .bar {
-    height:100%;
+.bar-chart .bars .bar-wrapper {
+    height: 100%;
     display: inline-block;
 }
 
-.bar-chart .bars .bar .bar-layer {
+.bar-chart .bars .bar-wrapper .bar {
+    height:100%;
+    display: block;
+}
+
+.bar-chart .bars .bar-wrapper .bar .bar-layer {
     display: inline-block;
     margin:0;
     padding:0;
 }
 
-.bar-chart .bars .bar .bar-background {
+.bar-chart .bars .bar-wrapper .bar .bar-background {
     height:100%;
 }
 
-.bar-chart .bars .bar .bar-foreground {
+.bar-chart .bars .bar-wrapper .bar .bar-foreground {
     vertical-align: baseline;
 }
 
@@ -46,27 +52,43 @@
 
 .bar-chart {
     height:200px;
+    color:#9c9c9c;
+    font-family: Arial;
+    font-size: 12px;
 }
 
 .bar-chart .y-axis {
-    width:100px;
-    background-color: pink;
+    width:50px;
+    /*background-color: #f3f3f3;*/
 }
 
-.bar-chart .bars .bar {
+.bar-chart .y-axis .y-axis-label {
+    right:20%;
 }
 
-.bar-chart .bars .bar .bar-layer {
+.bar-chart .bars {
+}
+
+.bar-chart .bars .bar-wrapper {
+    width:25px;
+    /*word-wrap: break-word;*/
+    margin-right:20px;
+}
+
+.bar-chart .bars .bar-wrapper .bar {
+}
+
+.bar-chart .bars .bar-wrapper .bar .bar-layer {
     width:25px;
     border-radius: 15px;
 }
 
-.bar-chart .bars .bar .bar-background {
-    background-color: #ddd;
+.bar-chart .bars .bar-wrapper .bar .bar-background {
+    background-color: #f3f3f3;
 }
 
-.bar-chart .bars .bar .bar-foreground {
+.bar-chart .bars .bar-wrapper .bar .bar-foreground {
     margin-left: -25px;
     height:50%;
-    background-color: green;
+    background-color: #b3e970;
 }
