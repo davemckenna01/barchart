@@ -4,7 +4,13 @@
     <title>Bar Chart</title>
 
     <link rel="stylesheet" href="barchart.css">
+    <script src="jquery.js"></script>
     <script src="barchart.js"></script>
+    <script>
+        $(function(){
+            $('#barchartme').barChart();
+        });
+    </script>
 </head>
 <body>
 
@@ -60,6 +66,28 @@
             </div>
         </div>
     </div>
+
+<br>
+<br>
+<br>
+<br>
+
+    <table id="barchartme">
+        <thead>
+            <tr>
+                <th>Dec 2011</th>
+                <th>Jan 2012</th>
+                <th>Feb 2012</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$135.23</td>
+                <td>$104.93</td>
+                <td>$210.56</td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
