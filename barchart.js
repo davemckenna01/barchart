@@ -5,7 +5,7 @@
             numBars,
             templates,
             chart,
-            yAxis,
+            yAxisLabels,
             yAxisLabel,
             bars,
             bar,
@@ -13,7 +13,8 @@
 
         templates = {
             chart: $('<div class="bar-chart"> <div class="y-axis"> </div> <div class="bars"> </div> </div>'),
-            bar: $('<div class="bar"> <div class="bar-layers"> <div class="bar-layer bar-background"></div><div class="bar-layer bar-foreground" style="height:30%;"> <div class="bar-value"></div> </div> </div> <div class="bar-label"> </div> </div> ')
+            bar: $('<div class="bar"> <div class="bar-layers"> <div class="bar-layer bar-background"></div><div class="bar-layer bar-foreground" style="height:30%;"> <div class="bar-value"></div> </div> </div> <div class="bar-label"> </div> </div> '),
+            yAxisLabel: $('<div class="y-axis-label"></div>')
         };
 
         // get labels
@@ -44,12 +45,28 @@
             bar = templates.bar.clone();
             bar.find('.bar-value').html(values[i]);
             bar.find('.bar-label').html(labels[i]);
+            bar.find('.bar-foreground').height(70 + '%');
             bars.push(bar);
         }
 
         // insert the bars
         chart.find('.bars').html(bars);
-        
+
+        // this will hold a bunch of y-axis labels
+        yAxisLabels = [];
+
+        numYAxisLabels = 6;
+
+        for (i = 0; i < numYAxisLabels; i++) {
+            yAxisLabel = templates.yAxisLabel.clone();
+            yAxisLabel.html(i);
+            yAxisLabel.css('top', (i * 20) + '%');
+            yAxisLabels.push(yAxisLabel);
+        }
+
+        // insert the axis labels
+        chart.find('.y-axis').html(yAxisLabels);
+
         // set type of bar chart
         chart.addClass('vertical');
 
