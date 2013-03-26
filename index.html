@@ -7,7 +7,27 @@
     <script src="barchart.js"></script>
 </head>
 <body>
-    <div class="bar-chart">
+
+
+    <div class="bar-chart horizontal">
+        <div class="bars">
+            <div class="bar highlighted">
+                <div class="bar-text bar-label">Current Bill</div>
+                <div class="bar-text bar-value">$123.45</div>
+            </div>
+            <div class="bar" style="width:80%;">
+                <div class="bar-text bar-label">Last Bill</div>
+                <div class="bar-text bar-value">$563.45</div>
+            </div>
+        </div>
+    </div>
+
+<br>
+<br>
+<br>
+<br>
+
+    <div class="bar-chart vertical">
         <div class="y-axis">
             <div class="y-axis-label" style="top:0%">$100</div>
             <div class="y-axis-label" style="top:20%">$80</div>
@@ -23,11 +43,23 @@
                         <div class="bar-value">$123.45</div>
                     </div>
                 </div>
-                 <div class="bar-label">
+                <div class="bar-label">
+                    Jan 2012
+                </div>
+            </div>
+
+            <div class="bar">
+                <div class="bar-layers">
+                    <div class="bar-layer bar-background"></div><div class="bar-layer bar-foreground" style="height:70%;">
+                        <div class="bar-value">$123.45</div>
+                    </div>
+                </div>
+                <div class="bar-label">
                     Jan 2012
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 </html>

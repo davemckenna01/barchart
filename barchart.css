@@ -1,56 +1,70 @@
+/* *************************** */
 /* Base Styles */
 
 .bar-chart {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 1em;
+}
+
+/* Vertical Bar Chart */
+
+.bar-chart.vertical {
 
 }
 
-.bar-chart .y-axis {
+.bar-chart.vertical .y-axis {
     height:100%;
     display: inline-block;
     position: relative;
     vertical-align: top;
 }
 
-.bar-chart .y-axis .y-axis-label {
+.bar-chart.vertical .y-axis .y-axis-label {
     position: absolute;
     right:0px;
     margin-top:-0.5em;
 }
 
-.bar-chart .bars {
+.bar-chart.vertical .bars {
     height:100%;
     display: inline-block;
 }
 
-.bar-chart .bars .bar {
-    height: 100%;
+.bar-chart.vertical .bars .bar {
     display: inline-block;
+    height: 100%;
+    width:25px; /* default width */
 }
 
-.bar-chart .bars .bar .bar-layers {
+.bar-chart.vertical .bars .bar .bar-label {
+}
+
+.bar-chart.vertical .bars .bar .bar-layers {
     height:100%;
     display: block;
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer {
     display: inline-block;
     margin:0;
     padding:0;
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer.bar-background {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer.bar-background {
     height:100%;
+    background-color: #ddd; /* default color */
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer.bar-foreground {
     vertical-align: baseline;
     position: relative;
+    background-color: #888; /* default color */
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground .bar-value {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer.bar-foreground .bar-value {
     /*display: none;*/
     position: absolute;
-    top:-1.5em;
+    top:-2.5em;
     left:-50%;
 
     color:#000;
@@ -64,56 +78,122 @@
 }
 
 
+/* Horizontal Bar Chart */
 
-/* Custom Styles */
+.bar-chart.horizontal {
+}
 
-.bar-chart {
+.bar-chart.horizontal .bars {
+}
+
+.bar-chart.horizontal .bars .bar {
+    border-radius: 15px;
+    width: 100%;
+    height: 25px; /* default height */
+    background-color: #ddd; /* default color */
+    position: relative;
+}
+
+.bar-chart.horizontal .bars .bar .bar-text {
+    position: absolute;
+    line-height: 25px; /* default line-height */
+}
+
+.bar-chart.horizontal .bars .bar .bar-text.bar-label {
+    left:10px;
+}
+
+.bar-chart.horizontal .bars .bar .bar-text.bar-value {
+    right:10px;
+}
+
+/* *************************** */
+/* User Styles */
+
+/* Vertical Bar Chart */
+
+.bar-chart.vertical {
     height:200px;
     color:#9c9c9c;
-    font-family: Arial;
     font-size: 12px;
 }
 
-.bar-chart .y-axis {
+.bar-chart.vertical .y-axis {
     width:50px;
     /*background-color: #f3f3f3;*/
 }
 
-.bar-chart .y-axis .y-axis-label {
+.bar-chart.vertical .y-axis .y-axis-label {
     right:20%;
 }
 
-.bar-chart .bars {
+.bar-chart.vertical .bars {
 }
 
-.bar-chart .bars .bar {
+.bar-chart.vertical .bars .bar {
     width:25px;
     /*word-wrap: break-word;*/
     margin-right:20px;
 }
 
-.bar-chart .bars .bar .bar-layers {
+.bar-chart.vertical .bars .bar .bar-label {
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer {
+.bar-chart.vertical .bars .bar .bar-layers {
+}
+
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer {
     width:25px;
     border-radius: 15px;
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer.bar-background {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer.bar-background {
     background-color: #f3f3f3;
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer.bar-foreground {
     margin-left: -25px;
     height:50%;
     background-color: #b3e970;
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground:hover {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer.bar-foreground:hover {
     background-color: #f1d00f;
 }
 
-.bar-chart .bars .bar .bar-layers .bar-layer.bar-foreground:hover .bar-value {
+.bar-chart.vertical .bars .bar .bar-layers .bar-layer.bar-foreground:hover .bar-value {
     display: block;
+}
+
+
+/* Horizontal Bar Chart */
+
+.bar-chart.horizontal {
+    width:500px;
+    color:#4b4b4b;
+    font-size: 12px;
+}
+
+.bar-chart.horizontal .bars {
+}
+
+.bar-chart.horizontal .bars .bar {
+    height: 25px;
+    margin-bottom:10px;
+    background-color: #f3f3f3;
+}
+
+.bar-chart.horizontal .bars .bar.highlighted {
+    background-color: #b3e970;
+}
+
+.bar-chart.horizontal .bars .bar .bar-text {
+}
+
+.bar-chart.horizontal .bars .bar .bar-text.bar-label {
+}
+
+.bar-chart.horizontal .bars .bar .bar-text.bar-value {
+    font-weight: bold;
+    font-size:15px;
 }
