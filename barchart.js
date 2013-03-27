@@ -1,4 +1,95 @@
 (function($) {
+
+    function addPercentage(values, max) {
+        for (i = 0; i < values.length; i++) {
+            values[i].percent = parseInt( (values[i].stripped * 100) / max );
+        }
+
+        return values;
+    }
+
+    function stripNumber(number) {
+        return parseFloat(number.replace('$',''));
+    }
+
+    function prepareValues(values) {
+        var raw,
+            stripped;
+
+        for (i = 0; i < values.length; i++) {
+            raw = values[i];
+            stripped = stripNumber(raw);
+            values[i] = {
+                raw: raw,
+                stripped: stripped
+            }
+        }
+
+        return values;
+    }
+
+    function getMinAndMax(values) {
+        var array;
+
+        array = [];
+
+        for (i = 0; i < values.length; i++) {
+            array.push(values[i].stripped);
+        }
+
+        return {
+            min: Math.min.apply(null, array),
+            max: Math.max.apply(null, array)
+        }
+    };
+
+    function calculateOrderOfMagnitude(val) {
+        return Math.floor(Math.log(val) / Math.LN10);
+    }       
+
+    function calculateScale(maxSteps,minSteps,maxValue,minValue) {
+        var graphMin,
+            graphMax,
+            graphRange,
+            stepValue,
+            numberOfSteps,
+            valueRange,
+            rangeOrderOfMagnitude;
+
+        valueRange = maxValue - minValue;
+        
+        rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
+
+        graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
+        
+        graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
+        
+        graphRange = graphMax - graphMin;
+        
+        stepValue = Math.pow(10, rangeOrderOfMagnitude);
+        
+        numberOfSteps = Math.round(graphRange / stepValue);
+        
+        //Compare number of steps to the max and min for that size graph, and add in half steps if need be.         
+        while(numberOfSteps < minSteps || numberOfSteps > maxSteps) {
+            if (numberOfSteps < minSteps){
+                stepValue /= 2;
+                numberOfSteps = Math.round(graphRange/stepValue);
+            }
+            else{
+                stepValue *=2;
+                numberOfSteps = Math.round(graphRange/stepValue);
+            }
+        };
+
+        return {
+            steps : numberOfSteps,
+            stepValue : stepValue,
+            graphMin : graphMin
+        }
+
+    }
+
     $.fn.barChart = function(){
         var labels,
             values,
@@ -9,34 +100,12 @@
             yAxisLabel,
             bars,
             bar,
-            i;
-
-        function determinePercentages(values) {
-            var max,
-                i,
-                percentage,
-                strippedNumber,
-                strippedNumbers;
-
-            // strip out dollar sign for finding max
-            strippedNumbers = [];
-            for (i = 0; i < values.length; i++) {
-                strippedNumber = values[i].replace('$','');
-                strippedNumbers.push(strippedNumber)
-            }
-
-            // find max
-            max = Math.max.apply(null, strippedNumbers);
-
-            // put the percentage value beside the original value
-            for (i = 0; i < values.length; i++) {
-                strippedNumber = values[i].replace('$','');
-                percentage = parseInt((strippedNumber * 100) / max);
-                values[i] = [values[i], percentage];
-            }
-
-            return values;
-        }
+            i,
+            minAndMax,
+            minValue,
+            maxValue,
+            scale,
+            maxPercent;
 
         templates = {
             chart: $('<div class="bar-chart"> <div class="y-axis"> </div> <div class="bars"> </div> </div>'),
@@ -58,28 +127,26 @@
             values.push($(this).text());
         });
 
-        numBars = labels.length;
+        // prepare raw values for mathematical manipulation
+        values = prepareValues(values);
+
+        minAndMax = getMinAndMax(values);
+
+        minValue = minAndMax.min;
+
+        maxValue = minAndMax.max;
+
+        scale = calculateScale(4, 2, maxValue, minValue);
+
+        console.log(scale);
 
         // Now let's create some els
 
-        // main wrapper el
+        // ------------------------------------ create main wrapper el
         chart = templates.chart.clone();
 
-        // create bar els
-        bars = [];
-        values = determinePercentages(values);
-        for (i = 0; i < numBars; i++) {
-            bar = templates.bar.clone();
-            bar.find('.bar-value').html(values[i][0]);
-            bar.find('.bar-label').html(labels[i]);
-            bar.find('.bar-foreground').height(values[i][1] + '%');
-            bars.push(bar);
-        }
+        // ------------------------------------ create y-axis label els
 
-        // insert the bars
-        chart.find('.bars').html(bars);
-
-        // create y-axis label els
         yAxisLabels = [];
         numYAxisLabels = 6;
         for (i = 0; i < numYAxisLabels; i++) {
@@ -91,6 +158,24 @@
 
         // insert the axis labels
         chart.find('.y-axis').html(yAxisLabels);
+
+        // ------------------------------------ create bar els
+
+        maxPercent = scale.graphMin + (scale.steps * scale.stepValue);
+        values = addPercentage(values, maxPercent);
+
+        bars = [];
+        numBars = values.length;
+        for (i = 0; i < numBars; i++) {
+            bar = templates.bar.clone();
+            bar.find('.bar-value').html(values[i].raw);
+            bar.find('.bar-label').html(labels[i]);
+            bar.find('.bar-foreground').height(values[i].percent + '%');
+            bars.push(bar);
+        }
+
+        // insert the bars
+        chart.find('.bars').html(bars);
 
         // set type of bar chart
         chart.addClass('vertical');
