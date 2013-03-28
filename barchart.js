@@ -105,7 +105,8 @@
             minValue,
             maxValue,
             scale,
-            maxPercent;
+            maxYAxisValue,
+            labelValue;
 
         templates = {
             chart: $('<div class="bar-chart"> <div class="y-axis"> </div> <div class="bars"> </div> </div>'),
@@ -132,13 +133,12 @@
 
         minAndMax = getMinAndMax(values);
 
-        minValue = minAndMax.min;
+        // always want the y-axis to start at 0
+        minValue = 0;
 
         maxValue = minAndMax.max;
 
-        scale = calculateScale(4, 2, maxValue, minValue);
-
-        console.log(scale);
+        scale = calculateScale(8, 2, maxValue, minValue);
 
         // Now let's create some els
 
@@ -148,11 +148,13 @@
         // ------------------------------------ create y-axis label els
 
         yAxisLabels = [];
-        numYAxisLabels = 6;
+        numYAxisLabels = scale.steps + 1;
         for (i = 0; i < numYAxisLabels; i++) {
             yAxisLabel = templates.yAxisLabel.clone();
-            yAxisLabel.html(i);
-            yAxisLabel.css('top', (i * 20) + '%');
+            labelValue = (scale.steps - i) * scale.stepValue;
+            yAxisLabel.html(labelValue);
+            intervalPercentage = parseInt(100 / scale.steps);
+            yAxisLabel.css('top', (i * intervalPercentage) + '%');
             yAxisLabels.push(yAxisLabel);
         }
 
@@ -161,8 +163,8 @@
 
         // ------------------------------------ create bar els
 
-        maxPercent = scale.graphMin + (scale.steps * scale.stepValue);
-        values = addPercentage(values, maxPercent);
+        maxYAxisValue = scale.graphMin + (scale.steps * scale.stepValue);
+        values = addPercentage(values, maxYAxisValue);
 
         bars = [];
         numBars = values.length;
