@@ -1,95 +1,5 @@
 (function($) {
 
-    function addPercentage(values, max) {
-        for (i = 0; i < values.length; i++) {
-            values[i].percent = parseInt( (values[i].stripped * 100) / max );
-        }
-
-        return values;
-    }
-
-    function stripNumber(number) {
-        return parseFloat(number.replace('$',''));
-    }
-
-    function prepareValues(values) {
-        var raw,
-            stripped;
-
-        for (i = 0; i < values.length; i++) {
-            raw = values[i];
-            stripped = stripNumber(raw);
-            values[i] = {
-                raw: raw,
-                stripped: stripped
-            }
-        }
-
-        return values;
-    }
-
-    function getMinAndMax(values) {
-        var array;
-
-        array = [];
-
-        for (i = 0; i < values.length; i++) {
-            array.push(values[i].stripped);
-        }
-
-        return {
-            min: Math.min.apply(null, array),
-            max: Math.max.apply(null, array)
-        }
-    };
-
-    function calculateOrderOfMagnitude(val) {
-        return Math.floor(Math.log(val) / Math.LN10);
-    }       
-
-    function calculateScale(maxSteps,minSteps,maxValue,minValue) {
-        var graphMin,
-            graphMax,
-            graphRange,
-            stepValue,
-            numberOfSteps,
-            valueRange,
-            rangeOrderOfMagnitude;
-
-        valueRange = maxValue - minValue;
-        
-        rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
-
-        graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
-        
-        graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
-        
-        graphRange = graphMax - graphMin;
-        
-        stepValue = Math.pow(10, rangeOrderOfMagnitude);
-        
-        numberOfSteps = Math.round(graphRange / stepValue);
-        
-        //Compare number of steps to the max and min for that size graph, and add in half steps if need be.         
-        while(numberOfSteps < minSteps || numberOfSteps > maxSteps) {
-            if (numberOfSteps < minSteps){
-                stepValue /= 2;
-                numberOfSteps = Math.round(graphRange/stepValue);
-            }
-            else{
-                stepValue *=2;
-                numberOfSteps = Math.round(graphRange/stepValue);
-            }
-        };
-
-        return {
-            steps : numberOfSteps,
-            stepValue : stepValue,
-            graphMin : graphMin
-        }
-
-    }
-
     $.fn.barChart = function(){
         var labels,
             values,
@@ -199,4 +109,95 @@
         return this;
 
     };
+
+    function addPercentage(values, max) {
+        for (i = 0; i < values.length; i++) {
+            values[i].percent = parseInt( (values[i].stripped * 100) / max );
+        }
+
+        return values;
+    }
+
+    function stripNumber(number) {
+        return parseFloat(number.replace('$',''));
+    }
+
+    function prepareValues(values) {
+        var raw,
+            stripped;
+
+        for (i = 0; i < values.length; i++) {
+            raw = values[i];
+            stripped = stripNumber(raw);
+            values[i] = {
+                raw: raw,
+                stripped: stripped
+            }
+        }
+
+        return values;
+    }
+
+    function getMinAndMax(values) {
+        var array;
+
+        array = [];
+
+        for (i = 0; i < values.length; i++) {
+            array.push(values[i].stripped);
+        }
+
+        return {
+            min: Math.min.apply(null, array),
+            max: Math.max.apply(null, array)
+        }
+    };
+
+    function calculateOrderOfMagnitude(val) {
+        return Math.floor(Math.log(val) / Math.LN10);
+    }       
+
+    function calculateScale(maxSteps,minSteps,maxValue,minValue) {
+        var graphMin,
+            graphMax,
+            graphRange,
+            stepValue,
+            numberOfSteps,
+            valueRange,
+            rangeOrderOfMagnitude;
+
+        valueRange = maxValue - minValue;
+        
+        rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
+
+        graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
+        
+        graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
+        
+        graphRange = graphMax - graphMin;
+        
+        stepValue = Math.pow(10, rangeOrderOfMagnitude);
+        
+        numberOfSteps = Math.round(graphRange / stepValue);
+        
+        //Compare number of steps to the max and min for that size graph, and add in half steps if need be.         
+        while(numberOfSteps < minSteps || numberOfSteps > maxSteps) {
+            if (numberOfSteps < minSteps){
+                stepValue /= 2;
+                numberOfSteps = Math.round(graphRange/stepValue);
+            }
+            else{
+                stepValue *=2;
+                numberOfSteps = Math.round(graphRange/stepValue);
+            }
+        };
+
+        return {
+            steps : numberOfSteps,
+            stepValue : stepValue,
+            graphMin : graphMin
+        }
+
+    }
+    
 })(jQuery);
